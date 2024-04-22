@@ -1,4 +1,4 @@
-                                                    !-- LIBRERY MANAGEMENET SYSTEM --!
+                                          !-- LIBRERY MANAGEMENET SYSTEM --!
 
 
 ADMIN SITE :
