@@ -134,6 +134,11 @@ SEARCH-BOOK
 ![WQ1](https://github.com/sendhavnikhar/Library/assets/110706372/5120d7fc-4602-41fc-82f5-54e6323e10cc)
 
 
+DOWNLOAD-RECIEPT-PAGE
+ _____________________________________________________________
+
+ 
+![payment](https://github.com/sendhavnikhar/Library/assets/110706372/40f2be92-a135-4394-a30f-9567cdac0596)
 
 LOGOUT
 _____________________________________________________________
