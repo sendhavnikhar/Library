@@ -86,17 +86,60 @@ lOGOUT-PAGE
 
 
 
-USER SITE:
+
+
+ 
+ 
+ USER SITE:
 
 
 
 
+DASHBOARD-PAGE
+ _____________________________________________________________
+
+
+![clogin](https://github.com/sendhavnikhar/Library/assets/110706372/55f97d2a-2cee-42e8-a1be-e374788c1611)
 
 
 
 
+VIEWALLBOOKS PAGE
+ _____________________________________________________________
+
+
+![issuebook](https://github.com/sendhavnikhar/Library/assets/110706372/14c84a53-d35d-43f5-8458-491ec79ee83e)
+
+
+
+
+ISSUEBOOK PAGE
+ _____________________________________________________________
 
                                      
+![is2](https://github.com/sendhavnikhar/Library/assets/110706372/f81f8048-8000-4210-8509-a52f2fb4fe80)
+
+
+DOWNLOAD RECEIPT
+ _____________________________________________________________
+
+![WQ](https://github.com/sendhavnikhar/Library/assets/110706372/95baabf5-53e2-428f-965c-84d93ed22476)
+
+
+
+SEARCH-BOOK
+ _____________________________________________________________
+
+ 
+![WQ1](https://github.com/sendhavnikhar/Library/assets/110706372/5120d7fc-4602-41fc-82f5-54e6323e10cc)
+
+
+
+LOGOUT
+_____________________________________________________________
+
+![logout](https://github.com/sendhavnikhar/Library/assets/110706372/ef723b12-acb6-404b-afe0-9e84ce137ead)
+
 
 
 
