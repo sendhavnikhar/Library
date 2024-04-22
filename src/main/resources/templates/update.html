@@ -146,39 +146,6 @@
 <body>
 	
 	
-    <nav class="navbar" id="myNavbar">
-		<div>
-
-
-			<a href="/dashboard" class="active">
-				<h6>Library Management System</h6>
-			</a>
-
-			<a href="/addbook">AddBook</a>
-
-
-			<a href="/vieworder">ViewOrder</a>
-
-    
-             <a href="/viewBook">ViewBook</a>
-
-
-
-			<a href="/searchbook">SearchBook</a>
-
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-				<i class="fa fa-bars"></i>
-			</a>
-
-
-		</div>
-
-		<div class="right">
-			<a href="/logout">Logout</a>
-
-		</div>
-
-	</nav>
 	
 	
 	
@@ -188,21 +155,28 @@
 		<div th:if="${add}" class="error-message">
 			<h3 th:text="${add}"></h3>
 		</div>
-		<h2>AddBook</h2>
-		<form th:action="@{/bookadd}" method="post">
-			<input type="text" name="Bookname" placeholder="Bookname" required>
-			<input type="text" name="Bookprice" placeholder="BookPrice" required>
-			<textarea style="width: 300px;height: 200px; resize: none;" name="BookDetail"
-				placeholder="BookDetail"></textarea>
+		<h2>UpdateBook</h2>
+		<form th:action="@{/updatebook}" method="post">
+			
+			<input type="text" name="Bookid" placeholder="Bookname" th:value="${ubook.Bookid}" required hidden>
+			
+			<input type="text" name="Bookname" placeholder="Bookname" th:value="${ubook.bookname}" required>
+			<input type="text" name="Bookprice" placeholder="BookPrice" th:value="${ubook.Bookprice}"  required>
+		
+		
+		 <input type="text" name="BookDetail" placeholder="BookPrice" th:value="${ubook.BookDetail}"  required>
+			
+	
+			
 
 
 			<br>
-			<input type="submit" value="AddBook">
+			<input type="submit" value="UpdateBook">
 
              <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/viewBook"> viewbook</a>
+		
 		</form>
 		<br><br>
 		

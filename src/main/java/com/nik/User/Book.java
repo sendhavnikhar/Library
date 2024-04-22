@@ -1,12 +1,14 @@
 package com.nik.User;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Book {
+public class Book implements Comparable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +50,7 @@ public class Book {
 	}
 
 	public void setBookname(String bookname) {
-		bookname = bookname;
+		this.bookname = bookname;
 	}
 
 	public String getBookprice() {
@@ -71,6 +73,19 @@ public class Book {
 	public String toString() {
 		return "Book [Bookid=" + Bookid + ", Bookname=" + bookname + ", Bookprice=" + Bookprice + ", BookDetail="
 				+ BookDetail + "]";
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Book b = (Book) o;
+		if (Integer.parseInt(this.Bookprice) > Integer.parseInt(b.Bookprice))
+			return +1;
+		else if (Integer.parseInt(this.Bookprice) < Integer.parseInt(b.Bookprice))
+			return -1;
+		else {
+			return 0;
+		}
+
 	}
 
 }

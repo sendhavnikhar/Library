@@ -86,21 +86,16 @@
 		<div>
 
 
-			<a href="/dashboard" class="active">
+			<a href="/Cdashboard" class="active">
 				<h6>Library Management System</h6>
 			</a>
 
-			<a href="/addbook">AddBook</a>
-
-
-			<a href="/vieworder">ViewOrder</a>
-
-    
-             <a href="/viewBook">ViewBook</a>
+			
+             <a href="/CviewBook">ViewBook</a>
 
 
 
-			<a href="/searchbook">SearchBook</a>
+			<a href="/Csearchbook">SearchBook</a>
 
 			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 				<i class="fa fa-bars"></i>
@@ -119,7 +114,7 @@
 <br><br>
 
 
-<h3 class="text-center"><b>Book order Details</b></h3>
+<h3 class="text-center"><b>Book Order Details</b></h3>
 <br>
 	<div class="container">
 		<div class="row justify-content-center">
@@ -129,10 +124,8 @@
 						<tr>
 							
 							<th class="text-center">PayID</th>
+							
 							<th class="text-center">Buyername</th>
-							
-							<th class="text-center">Bookname</th>
-							
 							<th class="text-center">IssueDate</th>
 							<th class="text-center">ExpiryDate</th>
 							
@@ -145,12 +138,13 @@
 
 
 					<tbody>
-						<tr th:each="payment : ${payments}">
+						<tr th:each="payment : ${payment}">
 							
 						  
 							<td class="text-center" th:text="${payment.payid}"></td>
+							
+							
 							<td class="text-center" th:text="${payment.buyername}"></td>
-							<td class="text-center" th:text="${payment.bookname}"></td>
 							<td class="text-center" th:text="${payment.issuedate}"></td>
 							<td class="text-center" th:text="${payment.expirydate}"></td>
 							

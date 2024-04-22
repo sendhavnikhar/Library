@@ -1,120 +1,99 @@
 package com.nik.User;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-
 
 @Entity
 public class Payment {
 
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int PayId;
+	private int payid;
+	private String bookname;
+	private String buyername;
+	private String issuedate ;
+	private String expirydate;
 	
-	private String paycard;
-	
-	private String expiryDate;
-	
-	private String Cvv;
-	
-	
-	@Column(unique = true)
-	private String payname;
-	
-	
-	
-
-	
-
-
 	public Payment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Payment(int payId, String paycard, String expiryDate, String cvv, String payname) {
+	public Payment(String bookname, String buyername, String issuedate, String expirydate) {
 		super();
-		PayId = payId;
-		this.paycard = paycard;
-		this.expiryDate = expiryDate;
-		Cvv = cvv;
-		this.payname = payname;
+		this.bookname = bookname;
+		this.buyername = buyername;
+		this.issuedate = issuedate;
+		this.expirydate = expirydate;
 	}
 
+	
 
-	public Payment(String paycard, String expiryDate, String cvv, String payname) {
+
+	public Payment(int payid, String buyername, String issuedate, String expirydate) {
 		super();
-		this.paycard = paycard;
-		this.expiryDate = expiryDate;
-		Cvv = cvv;
-		this.payname = payname;
+		this.payid = payid;
+		this.buyername = buyername;
+		this.issuedate = issuedate;
+		this.expirydate = expirydate;
 	}
 
-
-	public int getPayId() {
-		return PayId;
+	public int getPayid() {
+		return payid;
 	}
 
-
-	public void setPayId(int payId) {
-		PayId = payId;
+	public void setPayid(int payid) {
+		this.payid = payid;
 	}
 
-
-	public String getPaycard() {
-		return paycard;
+	public String getBookname() {
+		return bookname;
 	}
 
-
-	public void setPaycard(String paycard) {
-		this.paycard = paycard;
+	public void setBookname(String bookname) {
+		this.bookname = bookname;
 	}
 
-
-	public String getExpiryDate() {
-		return expiryDate;
+	public String getBuyername() {
+		return buyername;
 	}
 
-
-	public void setExpiryDate(String expiryDate) {
-		this.expiryDate = expiryDate;
+	public void setBuyername(String buyername) {
+		this.buyername = buyername;
 	}
 
-
-	public String getCvv() {
-		return Cvv;
+	public String getIssuedate() {
+		return issuedate;
 	}
 
-
-	public void setCvv(String cvv) {
-		Cvv = cvv;
+	public void setIssuedate(String issuedate) {
+		this.issuedate = issuedate;
 	}
 
-
-	public String getPayname() {
-		return payname;
+	public String getExpirydate() {
+		return expirydate;
 	}
 
-
-	public void setPayname(String payname) {
-		this.payname = payname;
+	public void setExpirydate(String expirydate) {
+		this.expirydate = expirydate;
 	}
-
 
 	@Override
 	public String toString() {
-		return "Payment [PayId=" + PayId + ", paycard=" + paycard + ", expiryDate=" + expiryDate + ", Cvv=" + Cvv
-				+ ", payname=" + payname +"]";
+		return "Payment [payid=" + payid + ", bookname=" + bookname + ", buyername=" + buyername + ", issuedate="
+				+ issuedate + ", expirydate=" + expirydate + "]";
 	}
-
-
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

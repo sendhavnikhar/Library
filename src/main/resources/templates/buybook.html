@@ -192,20 +192,21 @@
     <nav class="navbar" id="myNavbar">
 		<div>
 
-
-			<a href="#" class="active">
+          <a href="/dashboard" class="active">
 				<h6>Library Management System</h6>
 			</a>
 
-			<a href="/viewBook">ViewBook</a>
+			<a href="/addbook">AddBook</a>
 
-			
+
 			<a href="/vieworder">ViewOrder</a>
 
+    
+             <a href="/viewBook">ViewBook</a>
 
 
-			<a href="#">SearchBook</a>
 
+			<a href="/searchbook">SearchBook</a>
 			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 				<i class="fa fa-bars"></i>
 			</a>
@@ -232,6 +233,8 @@
     
     
     
+ 
+      <input type="text" id="cardNumber" name="bookname"  th:value="${bookname}" required >
        
     
       <label for="cardNumber">Card Number:</label>

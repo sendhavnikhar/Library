@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.nik.Service.UserService;
 import com.nik.User.User;
 
@@ -26,9 +27,26 @@ public class MainController {
 
 		return "home";
 	}
+	
+	
+	@RequestMapping("/update")
+	public String update() {
 
-	
-	
+		return "update";
+	}
+
+	@RequestMapping("/searchbook")
+	public String sbook() {
+
+		return "searchbook";
+	}
+
+	@RequestMapping("/Csearchbook")
+	public String Csbook() {
+
+		return "Csearchbook";
+	}
+
 	@RequestMapping("/Register")
 	public String Register() {
 
@@ -37,32 +55,23 @@ public class MainController {
 
 	@PostMapping("/do_register")
 	public String RegUser(@RequestParam("Username") String Username, @RequestParam("Password") String Password,
-			@RequestParam("CPassword") String CPassword  ,Model model) {
+			@RequestParam("CPassword") String CPassword, Model model) {
 
 		User user = new User(Username, Password, CPassword);
- 
-	   User existingUser = userService.checkedUser(Username, Password);
-		
-	   
-	   
-	   if (existingUser != null) {
-	        
-	       model.addAttribute("error","User is Already Exists");
-	        return "Register"; 
-	    }
 
-	   
-			this.userService.SaveUser(user);
+		User existingUser = userService.checkedUser(Username, Password);
 
-			System.out.println("Register SuccessFully");
+		if (existingUser != null) {
 
-			return "redirect:/login";
-			
-		
-			
-		
-		
-		
+			model.addAttribute("error", "User is Already Exists");
+			return "Register";
+		}
+
+		this.userService.SaveUser(user);
+
+		System.out.println("Register SuccessFully");
+
+		return "redirect:/login";
 
 	}
 
@@ -78,45 +87,58 @@ public class MainController {
 		return "dashboard";
 	}
 
+	@RequestMapping("/Cdashboard")
+	public String Cdashboard() {
 
+		return "Cdashboard";
+	}
 
-
-	
 	@PostMapping("/dologin")
-	public String login(@RequestParam("Username") String Username, @RequestParam("Password") String Password ,Model model) {
+	public String login(@RequestParam("Username") String Username, @RequestParam("Password") String Password,
+			Model model) {
 
 		boolean check = userService.checkUser(Username, Password);
 
-		if (check) {
+		User user = userService.checkedUser(Username, Password);
+
+		if (user != null && user.getUsername().equals("admin@gmail.com") && user.getPassword().equals("admin")) {
 
 			
+		String name = user.getUsername();
+		
+		
+		model.addAttribute("name",name);
+
 			
 			return "dashboard";
 		}
 
-		else {
+		else if (user == null) {
 
 			model.addAttribute("error", "Invalid username or password");
 			return "login";
+
+		}
+
+		else {
+
+			return "Cdashboard";
+
 		}
 	}
-	
-	
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request,Model model) {
-       
-        HttpSession session = request.getSession(false);
-        
-    
-        if (session != null) {
-        	
-        	
-            session.invalidate(); 
-        }
+	public String logout(HttpServletRequest request, Model model) {
 
-        model.addAttribute("error", "Logout SuccessFully");
-        return "login"; 
-    }
+		HttpSession session = request.getSession(false);
+
+		if (session != null) {
+
+			session.invalidate();
+		}
+
+		model.addAttribute("error", "Logout SuccessFully");
+		return "login";
+	}
 
 }

@@ -86,21 +86,16 @@
 		<div>
 
 
-			<a href="/dashboard" class="active">
+			<a href="/Cdashboard" class="active">
 				<h6>Library Management System</h6>
 			</a>
 
-			<a href="/addbook">AddBook</a>
 
-
-			<a href="/vieworder">ViewOrder</a>
-
-    
-             <a href="/viewBook">ViewBook</a>
+			<a href="/CviewBook">BuyBook</a>
 
 
 
-			<a href="/searchbook">SearchBook</a>
+			<a href="/Csearchbook">SearchBook</a>
 
 			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 				<i class="fa fa-bars"></i>
@@ -116,46 +111,46 @@
 
 	</nav>
 
-<br><br>
+	<br><br>
 
-
-<h3 class="text-center"><b>Book order Details</b></h3>
-<br>
+	<h3 class="text-center">Books Details</h3>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-20">
 				<table class="table table-light table-striped">
 					<thead>
 						<tr>
-							
-							<th class="text-center">PayID</th>
-							<th class="text-center">Buyername</th>
-							
-							<th class="text-center">Bookname</th>
-							
-							<th class="text-center">IssueDate</th>
-							<th class="text-center">ExpiryDate</th>
-							
-                            <th class="text-center">Receipt Download</th>
+							<th class="text-center">BookId</th>
+							<th class="text-center">BookName</th>
+							<th class="text-center">BookPrize</th>
+							<th class="text-center">BookDetails</th>
+							<th class="text-center">IssueBook</th>
+							<th class="text-center">ReturnBook</th>
 
-							
+
 						</tr>
 					</thead>
 
 
 
 					<tbody>
-						<tr th:each="payment : ${payments}">
+						<tr th:each="book : ${books}">
+
+							<td class="text-center" th:text="${book.Bookid}"></td>
+
+							<td class="text-center" th:text="${book.bookname}"></td>
+							<td class="text-center" th:text="${book.Bookprice}"></td>
+							<td class="text-center" th:text="${book.BookDetail}"></td>
+							<td class="text-center"> <a th:href="@{'/Cbuybook?bookname=' + ${book.bookname}}"
+									class="btn btn-success">IssueBook</a>
+							</td>
 							
-						  
-							<td class="text-center" th:text="${payment.payid}"></td>
-							<td class="text-center" th:text="${payment.buyername}"></td>
-							<td class="text-center" th:text="${payment.bookname}"></td>
-							<td class="text-center" th:text="${payment.issuedate}"></td>
-							<td class="text-center" th:text="${payment.expirydate}"></td>
-							
-							<td class="text-center"> <a th:href="@{'/generatePDF?payId='+ ${payment.payid}}" class="btn btn-success">DOWNLOAD</a>
-</td>
+							<td class="text-center"> <a th:href="@{/returnbook}"
+									class="btn btn-primary">ReturnBook</a>
+							</td>
+
+
+
 
 						</tr>
 					</tbody>

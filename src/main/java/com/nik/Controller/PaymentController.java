@@ -1,5 +1,6 @@
 package com.nik.Controller;
 
+
 import java.awt.Color;
 import java.awt.PageAttributes.MediaType;
 import java.io.ByteArrayOutputStream;
@@ -30,6 +31,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.nik.Service.BookService;
 import com.nik.Service.Paymentservice;
 import com.nik.User.Book;
@@ -40,104 +42,142 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class PaymentController {
 
-	
- @Autowired
- private Paymentservice paymentservice;
-	
- 
- @Autowired
- private BookService bookService;
- 
-	@RequestMapping("/payment")
-	public String dopayment(@RequestParam("CardNumber")String CardNumber,@RequestParam("ExpiryDate") String ExpiryDate,
-			@RequestParam("CVV") String CVV ,@RequestParam("CardOwnerName") String CardOwnerName,Model model) {
+	@Autowired
+	private Paymentservice paymentservice;
 
-		Payment payment = new Payment(CardNumber.trim(),ExpiryDate.trim(),CVV.trim(),CardOwnerName.trim());
+	@Autowired
+	private BookService bookService;
+
+	@RequestMapping("/payment")
+	public String dopayment(@RequestParam("bookname") String bookname,
+			@RequestParam("IssueDate") String IssueDate, @RequestParam("ExpiryDate") String ExpiryDate,
+			@RequestParam("BuyerName") String BuyerName,
+			Model model) {
+
+		
+		Payment payment = new Payment(bookname.trim(), ExpiryDate.trim(), IssueDate.trim(), bookname.trim());
+
+		this.paymentservice.savepayment(payment);
+
+		List<Payment> payments = this.paymentservice.showpayment();
+
+		model.addAttribute("payments", payments);
+
+		return "vieworder";
+
+	}
+	
+	
+	@RequestMapping("/Cpayment")
+	public String issuebook(@RequestParam("bookname") String bookname, @RequestParam("issueDate") String issueDate , @RequestParam("expiryDate") String expiryDate , @RequestParam("buyername") String buyername ,Model model) {
 		
 		
+		Payment payment2 = this.paymentservice.getPaymentbybname(buyername);
 		
+		
+		if(payment2 !=null) {
+		
+			
+			model.addAttribute("error", "Same Name is Already Exist !! Try Different One");
+		
+		
+			return "Cbuybook";
+		}
+		
+
+		
+		
+		Payment payment = new Payment(bookname,buyername,issueDate,expiryDate);
 		
 		
 		this.paymentservice.savepayment(payment);
-	
-      
 		
 		
-		List<Payment> payments = this.paymentservice.showpayment();
+		Payment payment3 = this.paymentservice.getPaymentbybname(buyername);
 		
-		model.addAttribute("payments",payments);
+		System.out.println(payment2);
+		model.addAttribute("payment",payment3);
 		
+		return "Cvieworder";
 		
-        return "vieworder";
 		
 	}
 	
+
 	
+	@GetMapping("/generatePDF")
+	public void generatePDF(@RequestParam("payId") int payid, HttpServletResponse response) throws IOException {
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + payid + "_payment_details.pdf\"");
 
-   
-	 @GetMapping("/generatePDF")
-	    public void generatePDF(@RequestParam("payname")String payname,HttpServletResponse response) throws IOException {
-	        response.setContentType("application/pdf");
-	        response.setHeader("Content-Disposition", "attachment; filename=\"" + payname + "_payment_details.pdf\"");
+		try {
 
-	        try {
-	            
-	        
-	        	  System.out.println(payname);
-	        	
-	        	Payment payment = this.paymentservice.getPaymentbyName(payname);
-	        	
-	            System.out.println(payment);
+			System.out.println(payid);
 
-	            Document document = new Document();
-	            PdfWriter.getInstance(document, response.getOutputStream());
-	            document.open();
+			Payment payment = this.paymentservice.getPaymentbyId(payid);
 
-	            Paragraph paragraph = new Paragraph();
-	            paragraph.add("Thanks For Using Your Librery Management Website ");
-	            paragraph.setAlignment(Element.ALIGN_CENTER);
-	            paragraph.setSpacingAfter(10);
-	            document.add(paragraph);
+			System.out.println(payment);
 
-	            PdfPTable table = new PdfPTable(2);
-	            table.addCell("payName");
-	            table.addCell(payment.getPayname());
-	            table.addCell("CardNumber");
-	            table.addCell(payment.getExpiryDate());
-	            table.addCell("CardExpiryDate");
-	            table.addCell(payment.getPaycard());
-	            table.addCell("Card Cvv");
-	            table.addCell(payment.getCvv());
-	            
-	            
-	            
-	            document.add(table);
+			Document document = new Document();
+			PdfWriter.getInstance(document, response.getOutputStream());
+			document.open();
 
-	            paragraph = new Paragraph();
-	            paragraph.add("Thanks For Buying Your Great Book");
-	            paragraph.setAlignment(Element.ALIGN_CENTER);
-	            paragraph.setSpacingAfter(20);
-	            document.add(paragraph);
+			Paragraph paragraph = new Paragraph();
+			paragraph.add("Thanks For Using Your Librery Management Website ");
+			paragraph.setAlignment(Element.ALIGN_CENTER);
+			paragraph.setSpacingAfter(10);
+			document.add(paragraph);
 
-	            document.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            // Handle exception appropriately
-	        }
-	    }
-    
-	
-	
+			PdfPTable table = new PdfPTable(2);
+
+			table.addCell("BookName");
+			table.addCell(payment.getBookname());
+			table.addCell("BuyerName");
+			table.addCell(payment.getBuyername());
+
+			table.addCell("IssueDate");
+			table.addCell(payment.getIssuedate());
+
+			table.addCell("ExpiryDate");
+			table.addCell(payment.getExpirydate());
+
+			
+
+			document.add(table);
+
+			paragraph = new Paragraph();
+			paragraph.add("Thanks For Buying Your Great Book");
+			paragraph.setAlignment(Element.ALIGN_CENTER);
+			paragraph.setSpacingAfter(20);
+			document.add(paragraph);
+
+			document.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Handle exception appropriately
+		}
+	}
 
 	@GetMapping("/vieworder")
-	public String getAllBooks(Model model){
-		
+	public String getAllBooks(Model model) {
+
 		List<Payment> payments = this.paymentservice.showpayment();
-		
-		model.addAttribute("payments",payments);
+
+		model.addAttribute("payments", payments);
 		return "vieworder";
 	}
 	
-	
+
+	@GetMapping("/Cvieworder")
+	public String CgetAllBooks(Model model) {
+
+		List<Payment> payments = this.paymentservice.showpayment();
+
+		model.addAttribute("payments", payments);
+		return "Cvieworder";
 	}
 
+	
+	
+	
+}
