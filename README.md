@@ -1,4 +1,4 @@
-!-- LIBRERY MANAGEMENET SYSTEM --!
+                                                    !-- LIBRERY MANAGEMENET SYSTEM --!
 
 
 ADMIN SITE :
@@ -158,6 +158,7 @@ _____________________________________________________________
 ----------------------------------------------------------------------------------------------------
 admin login:
 Username: admin@gmail.com
+
 Password: admin
 
 
